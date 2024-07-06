@@ -9,10 +9,15 @@ export default function Router() {
 
     const { isDarkMode } = useTheme();
 
+    const homeScreenStackOption = {
+        headerShown: false,
+        gestureEnabled: false
+    }
+
     return (
         <NavigationContainer theme={isDarkMode ? DarkTheme : DefaultTheme}>
             <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomePage} />
+                <Stack.Screen name="Home" component={HomePage} options={homeScreenStackOption}/>
                 <Stack.Screen name="Detail" component={DetailPage} />
             </Stack.Navigator>
         </NavigationContainer>

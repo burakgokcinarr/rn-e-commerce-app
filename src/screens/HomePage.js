@@ -1,28 +1,38 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
-import useTheme from '../../src/hooks/useTheme';
-import { Camera } from 'lucide-react-native';
+import { View, Text, StyleSheet, SafeAreaView, Button, Alert } from 'react-native'
+import React, { useState } from 'react'
+import { HeaderText, SearchBarView, CategoryList } from '../components';
+import { Fonts } from '../constants';
 
 export default function HomePage() {
 
-    const { colors }      = useTheme();
-    
+    const [searchText, setSearchText] = useState(null);
+
     return (
-        <View style={[styles.container, { backgroundColor: colors.BG_COLOR }]}>
-            <Text style={[styles.title, { color: colors.TEXT }]}>Open up App.js to start working on your app!</Text>
-            <Camera color="red" size={48} />
-        </View>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.headerView}>
+                <HeaderText style={{fontSize: 36, fontFamily: Fonts.bold}}>
+                    Find your suitable watch now.
+                </HeaderText>
+            </View>
+            <SearchBarView 
+                value={searchText} 
+                placeholder="Search Product"
+                setSearchText={setSearchText} 
+                style={styles.input}
+            />
+            <CategoryList/>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
-    title: {
-        fontSize: 20
+    headerView: {
+        padding: 8
+    },
+    input: {
+        flex: 1
     }
 });

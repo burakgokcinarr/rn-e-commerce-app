@@ -1,4 +1,4 @@
-export const Data = [
+export const DUMMY_DATA = [
     {
         id: 1,
         image: "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694712318/Croma%20Assets/Communication/Wearable%20Devices/Images/300676_0_logazn.png?tr=w-400",
