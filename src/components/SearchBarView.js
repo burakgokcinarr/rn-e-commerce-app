@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React from 'react'
 import { Search, LayoutGrid } from 'lucide-react-native'
 import useTheme from '../hooks/useTheme'
+import { Fonts } from '../constants'
 
 export default function SearchBarView( props ) {
 
@@ -16,7 +17,7 @@ export default function SearchBarView( props ) {
                     placeholderTextColor={colors.TEXT}
                     onChangeText={props.setSearchText}
                     value={props.value}
-                    style={[props.style, { color: colors.TEXT }]}
+                    style={[props.style, styles.input, { color: colors.TEXT }]}
                 />
             </View>
             <LayoutGrid size={30} color={colors.TEXT}/>
@@ -30,6 +31,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center'
+    },
+    input: {
+        fontSize: 16,
+        fontFamily: Fonts.medium
     },
     inputView: {
         flexDirection: 'row',

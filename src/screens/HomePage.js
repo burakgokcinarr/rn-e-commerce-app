@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, SafeAreaView, Button, Alert } from 'react-nativ
 import React, { useState } from 'react'
 import { HeaderText, SearchBarView, CategoryList } from '../components';
 import { Fonts } from '../constants';
+import { DUMMY_DATA } from '../dummy/Data';
 
 export default function HomePage() {
 
@@ -20,7 +21,7 @@ export default function HomePage() {
                 setSearchText={setSearchText} 
                 style={styles.input}
             />
-            <CategoryList/>
+            <CategoryList data={DUMMY_DATA}/>
         </SafeAreaView>
     )
 }
