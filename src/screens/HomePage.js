@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, SafeAreaView, Button, Alert } from 'react-native'
 import React, { useState } from 'react'
-import { HeaderText, SearchBarView, CategoryList } from '../components';
+import { HeaderText, SearchBarView, CategoryList, ProductList } from '../components';
 import { Fonts } from '../constants';
 import { DUMMY_DATA } from '../dummy/Data';
 
@@ -22,6 +22,7 @@ export default function HomePage() {
                 style={styles.input}
             />
             <CategoryList data={DUMMY_DATA}/>
+            <ProductList data={DUMMY_DATA}/>
         </SafeAreaView>
     )
 }

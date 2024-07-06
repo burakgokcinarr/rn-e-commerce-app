@@ -17,27 +17,24 @@ export default function CategoryList({ data = [] }) {
 
     const CategoryView = ({ item, index }) => {
         return (
-            <TouchableOpacity key={index} onPress={() => setSelectedIndex(index)}>
-                <View style={[styles.category, { borderBottomColor: selectedIndex === index ? colors.BLUE : colors.GRAY }]}>
-                    <Text style={[styles.title, { color: selectedIndex === index ? colors.BLUE : colors.GRAY}]} >{item}</Text>
-                </View>
+            <TouchableOpacity style={styles.category} key={index} onPress={() => setSelectedIndex(index)}>
+                <Text style={[styles.title, { color: selectedIndex === index ? colors.BLUE : colors.GRAY}]} >{item}</Text>
+                <View style={[selectedIndex === index ? styles.bottomView : null, { backgroundColor: selectedIndex === index ? colors.BLUE : colors.GRAY }]}/>
             </TouchableOpacity>
         )
     }
 
     return (
-       <>
         <ScrollView 
             horizontal
             showsHorizontalScrollIndicator={false}
+            pagingEnabled={true}
             style={styles.container}
         >
-            {
-                category.map((val, index) => <CategoryView item={val} index={index}/>)
-            }
+        {
+            category.map((val, index) => <CategoryView item={val} index={index}/>)
+        }
         </ScrollView>
-        <Text>{selectedIndex}</Text>
-       </>
     )
 }
 
@@ -47,10 +44,14 @@ const styles = StyleSheet.create({
     },
     category: {
         marginRight: 15,
-        borderBottomWidth: 3
+        marginTop: 10
     },
     title: {
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: Fonts.medium
+    },
+    bottomView: {
+        height: 3,
+        width: 50
     }
 })
