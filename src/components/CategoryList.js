@@ -25,16 +25,18 @@ export default function CategoryList({ data = [] }) {
     }
 
     return (
-        <ScrollView 
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled={true}
-            style={styles.container}
-        >
-        {
-            category.map((val, index) => <CategoryView item={val} index={index}/>)
-        }
-        </ScrollView>
+        <View>
+            <ScrollView 
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                pagingEnabled={true}
+                style={styles.container}
+            >
+                {
+                    category.map((val, index) => <CategoryView item={val} index={index}/>)
+                }
+            </ScrollView>
+        </View>
     )
 }
 
