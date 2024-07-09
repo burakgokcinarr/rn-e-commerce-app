@@ -17,6 +17,7 @@ export default function ProductList() {
           <Image 
             source={item.image}
             style={styles.productImage}
+            contentFit='contain'
           />
         </View>
         <View style={styles.textContainer}>
@@ -36,14 +37,18 @@ export default function ProductList() {
       keyExtractor={(item) => item.id.toString()}
       style={styles.container}
       showsVerticalScrollIndicator={false}
-      columnWrapperStyle={{justifyContent: 'space-around'}}
+      columnWrapperStyle={styles.listWrapper}
     />
   )
 }
 
 const styles = StyleSheet.create({
     container: {
-      marginTop: 10
+      marginTop: 10,
+      backgroundColor: 'red'
+    },
+    listWrapper: {
+      justifyContent: 'space-around'
     },
     card: {
       width: '45%',
@@ -65,7 +70,6 @@ const styles = StyleSheet.create({
     productImage: {
       width: 180,
       height: 180,
-      resizeMode: 'contain',
     },
     textContainer: {
       flex: 1,

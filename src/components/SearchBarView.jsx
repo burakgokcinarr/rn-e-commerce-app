@@ -11,7 +11,7 @@ export default function SearchBarView( props ) {
     return (
         <View style={styles.container}>
             <View style={styles.inputView}>
-                <Search size={30} color={colors.TEXT}/>
+                <Search size={28} color={colors.TEXT}/>
                 <TextInput
                     placeholder={props.placeholder}
                     placeholderTextColor={colors.TEXT}
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     input: {
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: Fonts.medium
     },
     inputView: {
