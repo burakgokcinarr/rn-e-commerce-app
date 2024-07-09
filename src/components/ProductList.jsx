@@ -3,9 +3,11 @@ import React from 'react'
 import { Image } from 'expo-image'
 import { Fonts } from '../constants'
 import useTheme from '../hooks/useTheme'
+import { useSelector } from 'react-redux'
 
-export default function ProductList({ data = [] }) {
+export default function ProductList() {
 
+  const data       = useSelector((state) => state.data.data);
   const { colors } = useTheme();
 
   const productCard = ({ item }) => {

@@ -3,6 +3,8 @@ import { useFonts } from 'expo-font';
 import { FontLoader } from './src/config/FontConfig';
 
 import Router from './src/navigation/Router';
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
 
 export default function App() {
 
@@ -13,6 +15,8 @@ export default function App() {
   }
 
   return (
-    <Router/>
+    <Provider store={store}>
+      <Router/>
+    </Provider>
   );
 }

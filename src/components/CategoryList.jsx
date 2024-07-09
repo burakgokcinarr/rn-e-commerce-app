@@ -2,18 +2,20 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import React, { useEffect, useState } from 'react'
 import { Fonts } from '../constants';
 import useTheme from '../hooks/useTheme';
- 
-export default function CategoryList({ data = [] }) {
+import { useSelector, useDispatch } from 'react-redux';
+import { categoryData } from '../redux/slices/productSlice';
 
-    const { colors } = useTheme();
+export default function CategoryList() {
+
+    const dispatch      = useDispatch();
+    const { colors }    = useTheme();
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const [category, setCategory]           = useState(["Smart Watch"]);  // All Smart Watch
-
+    const categoryList  = useSelector((state) => state.data.category)
+    
     useEffect(() => {
-        // DUMMY DATA içerisinde yer alan kategori isimlerinin alınması
-        const uniqueCategories = Array.from(new Set(data.map(item => item.category)));
-        setCategory([category, ...uniqueCategories])
+        dispatch(categoryData())
     }, [])
+    
 
     const CategoryView = ({ item, index }) => {
         return (
@@ -33,7 +35,7 @@ export default function CategoryList({ data = [] }) {
                 style={styles.container}
             >
                 {
-                    category.map((val, index) => <CategoryView item={val} index={index}/>)
+                    categoryList.map((val, index) => <CategoryView item={val} index={index}/>)
                 }
             </ScrollView>
         </View>

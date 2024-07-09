@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, SafeAreaView, Button, Alert } from 'react-nativ
 import React, { useState } from 'react'
 import { HeaderText, SearchBarView, CategoryList, ProductList } from '../components';
 import { Fonts } from '../constants';
-import { DUMMY_DATA } from '../dummy/Data';
 
 export default function HomePage() {
 
@@ -10,19 +9,17 @@ export default function HomePage() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.headerView}>
-                <HeaderText style={{fontSize: 36, fontFamily: Fonts.bold}}>
-                    Find your suitable watch now.
-                </HeaderText>
-            </View>
+            <HeaderText style={styles.headerView}>
+                Find your suitable watch now.
+            </HeaderText>
             <SearchBarView 
                 value={searchText} 
                 placeholder="Search Product"
                 setSearchText={setSearchText} 
                 style={styles.input}
             />
-            <CategoryList data={DUMMY_DATA}/>
-            <ProductList data={DUMMY_DATA}/>
+            <CategoryList />
+            <ProductList />
         </SafeAreaView>
     )
 }
@@ -32,7 +29,10 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     headerView: {
-        padding: 8
+        fontSize: 36, 
+        fontFamily: Fonts.bold, 
+        margin: 8,
+        textAlign: 'left'
     },
     input: {
         flex: 1
