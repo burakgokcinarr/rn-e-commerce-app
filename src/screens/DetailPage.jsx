@@ -1,7 +1,9 @@
-import { StyleSheet, Text, View, SafeAreaView, Pressable, FlatList, TouchableOpacity, Image, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Pressable, FlatList, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useState, useRef } from 'react'
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native'
 import { ArrowLeft, Heart } from 'lucide-react-native';
+import { Image } from 'expo-image';
+import { Fonts } from '../constants';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -12,10 +14,12 @@ export default function DetailPage() {
     const { colors } = useTheme();
 
     const images = [
-        'https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694712318/Croma%20Assets/Communication/Wearable%20Devices/Images/300676_0_logazn.png?tr=w-400',
-        'https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1691134303/Croma%20Assets/Wearable/Wearable%20Devices/Images/275944_hmcg6b.png?tr=w-400',
-        'https://example.com/image3.jpg'
-    ];
+        detail.image,
+        detail.image,
+        detail.image,
+        detail.image,
+        detail.image
+    ]
 
     const [activeIndex, setActiveIndex] = useState(0);
     const flatListRef = useRef(null);
@@ -23,9 +27,10 @@ export default function DetailPage() {
     const renderItem = ({ item }) => (
         <View style={styles.slide}>
             <Image
-            source={{ uri: item }}
-            style={styles.image}
-            resizeMode="contain"
+                source={{ uri: item }}
+                style={styles.image}
+                contentFit='contain'
+                transition={1000}
             />
         </View>
     );
@@ -55,25 +60,26 @@ export default function DetailPage() {
     return (
         <SafeAreaView style={styles.container}>
             <Header/>
-            <Text>{detail.title}</Text>
-            <FlatList
-                data={images}
-                renderItem={renderItem}
-                horizontal
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index) => index.toString()}
-                onScroll={handleScroll}
-                ref={flatListRef}
-            />
-            <View style={styles.paginationContainer}>
-                {images.map((_, index) => (
-                <TouchableOpacity
-                    key={index}
-                    style={[styles.dot, activeIndex === index && styles.activeDot]}
-                    onPress={() => scrollToIndex(index)}
+            <View style={styles.sliderView}>
+                <FlatList
+                    data={images}
+                    renderItem={renderItem}
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item, index) => index.toString()}
+                    onScroll={handleScroll}
+                    ref={flatListRef}
                 />
-                ))}
+                <View style={styles.paginationContainer}>
+                    {images.map((_, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        style={[styles.dot, activeIndex === index && styles.activeDot]}
+                        onPress={() => scrollToIndex(index)}
+                    />
+                    ))}
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -89,20 +95,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: 10
     },
+    sliderView: {
+        height: '50%',
+        //backgroundColor: 'tomato'
+    },
     slide: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: screenWidth,
-        backgroundColor: 'white'
+        width: screenWidth
       },
       image: {
         width: screenWidth,
-        height: 300
+        height: '80%'
       },
       paginationContainer: {
+        flexWrap: 'wrap',
+        gap: 5,
+        alignSelf: 'center',
         flexDirection: 'row',
-        position: 'absolute',
-        bottom: 10
+        bottom: 5
       },
       dot: {
         width: 10,
@@ -112,6 +123,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'gray'
       },
       activeDot: {
+        width: 15,
         backgroundColor: 'blue'
       }
 })
