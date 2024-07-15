@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, SafeAreaView, Pressable, FlatList, TouchableOpacity, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Pressable, FlatList, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
 import React, { useState, useRef } from 'react'
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native'
-import { ArrowLeft, Heart } from 'lucide-react-native';
+import { ArrowLeft, Heart, Star } from 'lucide-react-native';
 import { Image } from 'expo-image';
 import { Fonts } from '../constants';
 
@@ -57,6 +57,17 @@ export default function DetailPage() {
         )
     }
 
+    const ProductColor = () => {
+       detail.colors.map((val) => {
+        console.log(val)
+            return (
+                <View style={{borderWidth: 1, borderColor: 'gray', padding: 10}}>
+                    <Text>{val}</Text>
+                </View>
+            )
+       })
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <Header/>
@@ -81,6 +92,29 @@ export default function DetailPage() {
                     ))}
                 </View>
             </View>
+            <View style={styles.productDesc}>
+                <View>
+                    <Text style={styles.productTitle}>{detail.title}</Text>
+                    <Text style={styles.productSubTitle}>{detail.subtitle}</Text>
+                </View>
+                <View style={styles.star}>
+                    <Star size="25" color="orange" fill="orange"/>
+                    <Text style={styles.productSubTitle}>{detail.star}</Text>
+                </View>
+            </View>
+            <Text style={styles.colorTitle}>Colors</Text>
+            <ScrollView horizontal contentInsetAdjustmentBehavior='automatic' showsHorizontalScrollIndicator={false}>
+                {
+                    detail.colors.map((val) => {
+                        console.log(val)
+                            return (
+                                <View style={{borderWidth: 1, borderColor: 'gray', padding: 10, height: 50, margin: 10}}>
+                                    <Text>{val}</Text>
+                                </View>
+                            )
+                       })
+                }
+            </ScrollView>
         </SafeAreaView>
     )
 }
@@ -116,14 +150,42 @@ const styles = StyleSheet.create({
         bottom: 5
       },
       dot: {
-        width: 10,
-        height: 10,
-        borderRadius: 5,
+        width: 8,
+        height: 8,
+        borderRadius: 4,
         marginHorizontal: 8,
         backgroundColor: 'gray'
       },
       activeDot: {
         width: 15,
         backgroundColor: 'blue'
-      }
+      },
+      productDesc: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+        alignItems: 'center'
+      },
+      productTitle: {
+        fontSize: 20,
+        fontFamily: Fonts.bold,
+        textAlign: 'left'
+      },
+      productSubTitle: {
+        fontSize: 15,
+        fontFamily: Fonts.medium,
+        textAlign: 'left',
+        color: 'gray'
+      },
+      star: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        gap: 4
+      },
+      colorTitle: {
+        fontSize: 20,
+        fontFamily: Fonts.bold,
+        textAlign: 'left',
+        padding: 10
+      },
 })
