@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, SafeAreaView, Pressable, FlatList, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native'
 import { ArrowLeft, Heart, Star } from 'lucide-react-native';
 import { Image } from 'expo-image';
 import { Fonts } from '../constants';
+import { CategorySection } from '../components';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -12,6 +13,8 @@ export default function DetailPage() {
     const navigation = useNavigation();
     const { detail } = useRoute().params;
     const { colors } = useTheme();
+    const [detailTitle, _] = useState(["Detail", "Review"]);
+    const [selectedIndex, setSelectedIndex] = useState(0);
 
     const images = [
         detail.image,
@@ -23,6 +26,10 @@ export default function DetailPage() {
 
     const [activeIndex, setActiveIndex] = useState(0);
     const flatListRef = useRef(null);
+
+    const handlePress = useCallback((index) => {
+        setSelectedIndex(index);
+    }, []);
 
     const renderItem = ({ item }) => (
         <View style={styles.slide}>
@@ -55,17 +62,6 @@ export default function DetailPage() {
                 <Heart size={30} color={colors.text}/>
             </View>
         )
-    }
-
-    const ProductColor = () => {
-       detail.colors.map((val) => {
-        console.log(val)
-            return (
-                <View style={{borderWidth: 1, borderColor: 'gray', padding: 10}}>
-                    <Text>{val}</Text>
-                </View>
-            )
-       })
     }
 
     return (
@@ -103,18 +99,50 @@ export default function DetailPage() {
                 </View>
             </View>
             <Text style={styles.colorTitle}>Colors</Text>
-            <ScrollView horizontal contentInsetAdjustmentBehavior='automatic' showsHorizontalScrollIndicator={false}>
-                {
-                    detail.colors.map((val) => {
-                        console.log(val)
+            <View>
+                <ScrollView 
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    pagingEnabled={true}
+                    contentInsetAdjustmentBehavior="automatic">
+                    {
+                        detail.colors.map((val) => {
                             return (
-                                <View style={{borderWidth: 1, borderColor: 'gray', padding: 10, height: 50, margin: 10}}>
-                                    <Text>{val}</Text>
+                                <View style={styles.colorView}>
+                                    <View style={[styles.productColorOver, { backgroundColor: val.code }]}/>
+                                    <Text>{val.name}</Text>
                                 </View>
                             )
-                       })
-                }
-            </ScrollView>
+                        })
+                    }
+                </ScrollView>
+            </View>
+            <View>
+                <ScrollView 
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    pagingEnabled={true}
+                    style={{padding: 8}}
+                    contentInsetAdjustmentBehavior="automatic">
+                    {
+                        detailTitle.map((val, index) => (
+                            <CategorySection 
+                                item={val} 
+                                index={index} 
+                                selectedIndex={selectedIndex} 
+                                onPress={handlePress}
+                            />
+                        ))
+                    }
+                </ScrollView>
+            </View>
+            {
+                selectedIndex === 0 && (
+                    <View style={styles.descriptionView}>
+                        <Text style={styles.descriptionTitle}>{detail.detail}</Text>
+                    </View>
+                )
+            }
         </SafeAreaView>
     )
 }
@@ -188,4 +216,29 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         padding: 10
       },
+      colorView: {
+        flexDirection: 'row',
+        gap: 5,
+        borderWidth: 1,
+        borderRadius: 8,
+        borderColor: 'gray',
+        height: 30,
+        padding: 5,
+        marginHorizontal: 8,
+        alignItems: 'center'
+      },
+      productColorOver: {
+        width: 20,
+        height: 20,
+        borderRadius: 10
+      },
+      descriptionView: {
+        padding: 8
+      },
+      descriptionTitle: {
+        fontSize: 17,
+        fontFamily: Fonts.medium,
+        textAlign: 'left',
+        color: 'gray'
+      },                     
 })
