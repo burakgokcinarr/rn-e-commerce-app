@@ -3,16 +3,18 @@ import React from 'react'
 import { Image } from 'expo-image'
 import { Fonts } from '../constants'
 import { useNavigation } from '@react-navigation/native'
+import useTheme from '../hooks/useTheme'
 
 export default function ProductCard({ item }) {
 
     const navigation= useNavigation();
+    const { colors }        = useTheme();
     const { width } = useWindowDimensions();
     const scale     = size => (width / 430) * size; // 430 => Ekran tasarımın yapıldığı genişlik
 
     return (
         <TouchableOpacity onPress={() => navigation.navigate('Detail', { detail: item })}>
-            <View style={[styles.card, { width: width/2 - 10 }]}>
+            <View style={[styles.card, { width: width/2 - 10, backgroundColor: colors.CARD_COLOR }]}>
                 <View style={[styles.imageContainer, { backgroundColor: item.primaryColor }]}>
                     <Image 
                     source={item.image}
@@ -21,7 +23,7 @@ export default function ProductCard({ item }) {
                     />
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={styles.productTitle}>{item.title}</Text>
+                    <Text style={[styles.productTitle, { color: colors.TEXT }]}>{item.title}</Text>
                     <Text style={styles.productBrand}>{item.category}</Text>
                     <Text style={styles.productPrice}>{item.price}</Text>
                 </View>
