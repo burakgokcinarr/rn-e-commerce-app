@@ -20,7 +20,7 @@ E-commerce application with Figma design
 * Custom Font
 * Performance List (FlashList)
 * Memory Caching Image (Expo-Image)
-* Suport Dark Mode
+* Dark Mode
 
 ## Bilgisayarınızda Çalıştırın
 
